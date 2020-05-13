@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 export default {
   mode: 'universal',
   head: {
@@ -12,9 +14,39 @@ export default {
   loading: { color: '#fff' },
   css: [],
   plugins: [],
-  buildModules: ['@nuxtjs/tailwindcss'],
-  modules: [],
+  buildModules: [
+    //
+    '@nuxtjs/dotenv',
+    '@nuxtjs/tailwindcss',
+  ],
+  modules: [
+    //
+    '@nuxtjs/axios',
+    '@nuxtjs/auth',
+  ],
   build: {
     extend(config, ctx) {},
+  },
+  router: {
+    middleware: ['auth'],
+  },
+  axios: {
+    baseURL: process.env.BACKEND_API_URL,
+  },
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: '/auth/login', method: 'post', propertyName: 'token' },
+          user: { url: '/auth/user' },
+          logout: false,
+        },
+      },
+    },
+  },
+  redirect: {
+    login: '/login',
+    logout: '/login',
+    home: '/',
   },
 };

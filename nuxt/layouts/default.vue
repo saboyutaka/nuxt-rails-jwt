@@ -1,7 +1,9 @@
 <template>
   <div>
     <Header />
-    <nuxt />
+    <main class="container mx-auto bg-white mt-24 md:mt-16 pt-4">
+      <nuxt />
+    </main>
   </div>
 </template>
 

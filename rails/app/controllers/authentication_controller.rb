@@ -25,6 +25,14 @@ class AuthenticationController < ApplicationController
     end
   end
 
+  def user
+    user = {
+      name: @current_user.name,
+      email: @current_user.email,
+    }
+    render json: { user: user }, status: :ok
+  end
+
   private
 
   def login_params

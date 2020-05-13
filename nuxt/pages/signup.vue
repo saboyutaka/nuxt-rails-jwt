@@ -2,6 +2,18 @@
   <div class="w-full max-w-xs mx-auto pt-10">
     <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="login">
       <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+          name
+        </label>
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="name"
+          type="text"
+          placeholder="name"
+          v-model="name"
+        />
+      </div>
+      <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
           email
         </label>
@@ -31,12 +43,12 @@
         <button
           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="button"
-          @click="login"
+          @click="signup"
         >
-          ログイン
+          新規登録
         </button>
-        <nuxt-link to="/signup" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
-          新規登録はこちら
+        <nuxt-link to="/login" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
+          ログインはこちら
         </nuxt-link>
       </div>
     </form>
@@ -45,35 +57,30 @@
 
 <script>
 export default {
-  middleware({ store, redirect }) {
-    console.log(store.state.auth.loggedIn);
-    if (store.state.auth.loggedIn) {
-      return redirect('/');
-    }
-  },
+  auth: 'guest',
   data() {
     return {
+      name: '',
       email: '',
       password: '',
       error: null,
     };
   },
   methods: {
-    async login() {
-      try {
-        await this.$auth.loginWith('local', {
-          data: {
-            email: this.email,
-            password: this.password,
-          },
+    async signup() {
+      this.$axios
+        .post('/signup', {
+          name: this.name,
+          email: this.email,
+          password: this.password,
+        })
+        .then(res => {
+          this.$auth.setUserToken(res.data.token);
+          location.href = '/';
+        })
+        .catch(e => {
+          console.error(e);
         });
-        location.href = '/';
-      } catch (e) {
-        console.error(e);
-        if (e.response.status === 401) {
-          this.error = 'メールアドレスとパスワードが一致しません';
-        }
-      }
     },
   },
 };

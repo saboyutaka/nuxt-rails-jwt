@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "christian-kohler.path-intellisense",
+    "coenraads.bracket-pair-colorizer",
+    "dariofuzinato.vue-peek",
+    "esbenp.prettier-vscode",
+    "formulahendry.auto-rename-tag",
+    "hollowtree.vue-snippets",
+    "msjsdiag.debugger-for-chrome",
+    "octref.vetur",
+    "xabikos.javascriptsnippets"
+  ]
+}

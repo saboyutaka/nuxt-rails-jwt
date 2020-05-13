@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center w-full sm:w-3/4 lg:w-1/2 mx-auto">
-    <form class="w-full mb-8">
+    <form class="w-full mb-8" @submit.prevent="postTodo">
       <div class="flex items-center border-b border-b-2 border-teal-500 py-2">
         <input
           class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
@@ -21,7 +21,7 @@
       </div>
     </form>
     <section class="flex flex-col items-center w-full">
-      <div v-for="todo in todos" :key="todo.id" class="w-full rounded shadow-md  hover:shadow-lg transition-shadow mb-4">
+      <div v-for="todo in todos" :key="todo.id" class="w-full rounded shadow-md  hover:shadow-lg transition-shadow mb-4" @click="deleteTodo(todo.id)">
         <div class="px-6 py-4">
           <div class="font-bold text-xl mb-2">{{ todo.content }}</div>
         </div>
@@ -57,9 +57,18 @@ export default {
           console.error(e);
         });
     },
-
     clearTodo() {
       this.newTodo = '';
+    },
+    deleteTodo(id) {
+      this.$axios
+        .delete(`/v1/todos/${id}`)
+        .then(res => {
+          this.todos = this.todos.filter(todo => todo.id !== id)
+        })
+        .catch(e => {
+          console.error(e);
+        });
     },
   },
 };

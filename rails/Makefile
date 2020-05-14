@@ -1,6 +1,7 @@
 .DEFAULT_GOAL := help
 
 build: ## build develoment environment
+	cp .env.sample .env
 	docker-compose run --rm ruby bundle install
 
 serve: up attach ## Run Serve

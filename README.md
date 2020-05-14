@@ -11,6 +11,7 @@
 macOS環境を想定。あらかじめ上記のツールをインストールしておく。
 
 ### アプリケーションの構築
+Rails, Nuxtをそれぞれ別のターミナルで起動する
 
 #### Rails
 ```
@@ -27,7 +28,11 @@ make serve
 ```
 cd nuxt
 
+# 初回
+cp .env.sample .env
 yarn install
+
+# nuxt を起動
 yarn dev
 ```
 

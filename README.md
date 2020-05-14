@@ -1,7 +1,15 @@
 # Nuxt.js Rails JWT
 
 * Frontend: Nuxt.js
-* Backend: Rails(API Mode)
+  * JS
+  * axios
+  * auth module(local)
+  * Tailwind CSS
+* Backend: Rails
+  * API Mode
+  * JWT
+  * CORS
+
 
 ## 開発環境構築
 

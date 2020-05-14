@@ -3,6 +3,7 @@
 build: ## build develoment environment
 	cp .env.sample .env
 	docker-compose run --rm ruby bundle install
+	docker-compose run --rm ruby bundle exec rails db:migrate
 
 serve: up attach ## Run Serve
 
@@ -14,6 +15,9 @@ console: ## Run Rails Console
 
 bundle: ## Run bundle install
 	docker-compose run --rm ruby bundle install
+
+migrate: ## Run rails db:migrate
+	docker-compose run --rm ruby bundle exec rails db:migrate
 
 attach: ## Attach running web container for binding.pry
 	docker attach `docker ps -f name=rails_ruby -f status=running --format "{{.ID}}"`

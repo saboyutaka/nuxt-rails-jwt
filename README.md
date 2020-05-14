@@ -8,6 +8,8 @@
 ### ツール
 * Docker, docker-compose, nodejs, yarn
 
+macOS環境を想定。あらかじめ上記のツールをインストールしておく。
+
 ### アプリケーションの構築
 
 #### Rails
